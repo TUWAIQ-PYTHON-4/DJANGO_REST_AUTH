@@ -30,6 +30,7 @@ def add_note(request : Request):
 
 
 @api_view(['GET'])
+@authentication_classes([JWTAuthentication])
 def list_note(request : Request):
     note_list = NoteModel.objects.all()
 
@@ -42,6 +43,7 @@ def list_note(request : Request):
 
 
 @api_view(['PUT'])
+@authentication_classes([JWTAuthentication])
 def update_note(request : Request, note_id):
     up_note = NoteModel.objects.get(id=note_id)
 
@@ -58,6 +60,7 @@ def update_note(request : Request, note_id):
         return Response({"msg" : "bad request, cannot update"}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE'])
+@authentication_classes([JWTAuthentication])
 def delete_note(request: Request, note_id):
     del_not = NoteModel.objects.get(id=note_id)
     del_not.delete()
